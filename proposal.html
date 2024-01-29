@@ -18,13 +18,15 @@
             <button id="nav_login">Login</button>
         </nav>
         <section id="profile">
-            <h2>Calorie Goal</h2>
-            <p>Your current goal is <span id="current_goal">0</span> Cal.</p>
             <div>
+                <p>Your current goal is <span id="current_goal">2000</span> Cal.</p>
+                <p>Your current weight is <span id="current_weight">150</span> lbs.</p>
             </div>
             <form>
                 <label for="updated_goal">Update Your Calorie Goal:</label>
                 <input type="number" id="updated_goal"><br>
+                <label for="updated_weight">Update Your Weight:</label>
+                <input type="number" id="updated_weight"><br>
             </form>
             <button id="update_goal_button">Update</button>
         </section>
@@ -34,18 +36,27 @@
                 <form>
                     <label for="input_date">Date:</label>
                     <input type="date" id="input_date"><br>
+                    <select id="meal_type">
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch" Selected>Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="other">Other</option>
+                    </select><br>
                     <label for="food_name">Food Name:</label>
                     <input type="text" id="food_name"><br>
                     <!-- We will add more filter parameters here -->
                 </form>
             </div>
             <div id="food_list">
+                <h3>Food List</h3>
                 <!-- List of food and their nutritional values will be here -->
             </div>
             <div id="added_food">
+                <h3>Added food</h3>
                 <ol>
                     <!-- List of added food will go here -->
                 </ol>
+                <button id="save_food_button">Save</button>
             </div>
         </section>
         <section id="add_fitness">
@@ -61,12 +72,15 @@
                 </form>
             </div>
             <div id="workout_list">
+                <h3>Workout List</h3>
                 <!-- List of workout & their calorie burn rate will go here -->
             </div>
             <div id="added_workout">
+                <h3>Added Workout</h3>
                 <ol>
                     <!-- List of added workout will go here -->
                 </ol>
+                <button id="save_workout_button">Save</button>
             </div>
         </section>
         <section id="history">
