@@ -4,95 +4,149 @@
         <meta charset="utf-8">
         <meta name="author" content="Chip Tang">
         <meta name="description" content="Manage Your Fitness and Food Nutrition">
-        <link rel="stylesheet" href="proposal.css">
-        <title>Eat Better! Feel Better!</title>
+        <link rel="stylesheet" href="css/proposal.css">
+        <title>Eating Better! Feels Better!</title>
     </head>
     <body>
-        <nav>
-            <h1>Eat Better! Feel Better!</h1>
-            <h2>Manage Your Fitness and Food Nutrition</h2>
-            <button id="nav_profile">Profile</button>
-            <button id="nav_add_food">Add Food</button>
-            <button id="nav_add_workout">Add Workout</button>
-            <button id="nav_history">History</button>
-            <button id="nav_login">Login</button>
-        </nav>
-        <section id="profile">
-            <div>
-                <p>Your current goal is <span id="current_goal">2000</span> Cal.</p>
-                <p>Your current weight is <span id="current_weight">150</span> lbs.</p>
-            </div>
-            <form>
-                <label for="updated_goal">Update Your Calorie Goal:</label>
-                <input type="number" id="updated_goal"><br>
-                <label for="updated_weight">Update Your Weight:</label>
-                <input type="number" id="updated_weight"><br>
-            </form>
-            <button id="update_goal_button">Update</button>
+        <h1>Eating Better! Feels Better!</h1>
+        <section class="problemstatement">
+            <h2>Problem Statement</h2>
+            <p>
+                Introducing eating better, feels better.
+                As college students we find ourselves neglecting our nutrition and the importance of our health.
+                Our years in higher education has become a place of unorganized planning relating to nutrition and fitness.
+                This uncertainty around knowing the food we consume and the amount of it , creates an unhealthy lifestyle that is not sustainable long term.
+                For this project, we know that there are alot of websites that specialize in calorie tracking and fitness planning.
+                But the problem rises when highlighting the users targeted for these websites.
+                Most of the websites are geared towards more experienced audiences that usually have a background in calorie tracking as well as fitness planning.
+                We want to change that. We want to create a space that simplifies tracking of food consumed, as well as the goals created alongside the fitness plan that parallels it.
+                An existing website that addresses our problem is a regular <a href="https://www.calculator.net/calorie-calculator.html">calorie tracker</a>, this website addresses the tracking of calories but the interface is heavily reliant on the user's knowledge and ability to track and input values.
+                We want to use the positives that come from the calorie tracker and add onto it an experience that leaves users with digestible information that they can make planned progress with.
+
+            </p>
         </section>
-        <section id="add_food">
-            <h2>Add Your Calorie Intake</h2>
-            <div id="food_filter">
+
+        <section class="problemstatement">
+            <h2>App Proposal</h2>
+            <ol>
+                <li>
+                    <strong>Who are the users of the application?</strong>
+                    <p>Our Fitness and Food Nutrition web app is primarily designed for individuals who are keen on monitoring their daily calorie intake and strive to maintain a healthy lifestyle. This app is particularly beneficial for those who aim to manage their weight, fitness enthusiasts, and people with specific dietary requirements or health conditions that necessitate careful food and activity tracking. The impact of this app on minority groups should be considered, ensuring it's accessible and inclusive.</p>
+                </li>
+                <li>
+                    <strong>What will the users do with the web app?</strong>
+                    <p>The web app will provide several interactive features:</p>
+                    <ol>
+                        <li>
+                            <strong>Calorie Intake Tracking:</strong> Users can log their daily food consumption by searching and selecting items from our food database. This feature includes an option to save meals as presets for easy future tracking. The nutritional values of the food items are sourced from a JSON dataset (<a href="https://github.com/terrenjpeterson/caloriecounter/blob/master/src/data/foods.json">Food JSON Dataset</a>).
+                        </li>
+                        <li>
+                            <strong>Workout Logging:</strong> The app allows users to record their daily physical activities, either by selecting from preset workout options or by entering custom activities. The duration and type of exercise are factored in to calculate calories burned. This feature utilizes data from the <a href="https://api-ninjas.com/api/caloriesburned">Calories Burned API</a>.
+                        </li>
+                        <li>
+                            <strong>Calorie History Analysis:</strong> Users can review their weekly calorie intake and expenditure history, providing insights into their net calorie gain or loss. This helps in long-term tracking and planning of diet and fitness goals.
+                        </li>
+                    </ol>
+                </li><br>
+                <li>
+                    <strong>API Usage Confirmation:</strong>
+                    <p>The "Calories Burned API" passed the test for client-side accessibility at <a href="https://joelwross.github.io/cors-test/">CORS Test</a>.</p>
+                </li>
+
+                <li>
+                    <strong>How will using this app help to solve your chosen problem?</strong>
+                    <p>This app is a one-stop solution for individuals aiming to maintain or achieve a healthier lifestyle. By providing tools for tracking and analyzing food intake and physical activities, the app empowers users to make informed decisions about their diet and exercise habits. It encourages a more conscious approach to eating and physical fitness, potentially leading to improved overall health and well-being.</p>
+                </li>
+            </ol>
+        </section>
+
+        <section class="appdetails">
+            <nav>
+                <h2>Manage Your Fitness and Food Nutrition</h2>
+                <button id="nav_profile">Profile</button>
+                <button id="nav_add_food">Add Food</button>
+                <button id="nav_add_workout">Add Workout</button>
+                <button id="nav_history">History</button>
+                <button id="nav_login">Login</button>
+            </nav>
+            <section id="profile">
+                <div>
+                    <p>Your current goal is <span id="current_goal">2000</span> Cal.</p>
+                    <p>Your current weight is <span id="current_weight">150</span> lbs.</p>
+                </div>
                 <form>
-                    <label for="input_date">Date:</label>
-                    <input type="date" id="input_date"><br>
-                    <select id="meal_type">
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch" Selected>Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="other">Other</option>
-                    </select><br>
-                    <label for="food_name">Food Name:</label>
-                    <input type="text" id="food_name"><br>
-                    <!-- We will add more filter parameters here -->
+                    <label for="updated_goal">Update Your Calorie Goal:</label>
+                    <input type="number" id="updated_goal"><br>
+                    <label for="updated_weight">Update Your Weight:</label>
+                    <input type="number" id="updated_weight"><br>
                 </form>
-            </div>
-            <div id="food_list">
-                <h3>Food List</h3>
-                <!-- List of food and their nutritional values will be here -->
-            </div>
-            <div id="added_food">
-                <h3>Added food</h3>
-                <ol>
-                    <!-- List of added food will go here -->
-                </ol>
-                <button id="save_food_button">Save</button>
-            </div>
-        </section>
-        <section id="add_fitness">
-            <h2>Add Your Workout</h2>
-            <div id="workout_filter">
-                <form>
-                    <label for="input_date">Date:</label>
-                    <input type="date" id="input_date"><br>
-                    <label for="workout_name">Workout Name :</label>
-                    <input type="text" id="workout_name"><br>
-                    <label for="workout_duration">Workout Duration :</label>
-                    <input type="number" id="workout_duration"><br>
-                </form>
-            </div>
-            <div id="workout_list">
-                <h3>Workout List</h3>
-                <!-- List of workout & their calorie burn rate will go here -->
-            </div>
-            <div id="added_workout">
-                <h3>Added Workout</h3>
-                <ol>
-                    <!-- List of added workout will go here -->
-                </ol>
-                <button id="save_workout_button">Save</button>
-            </div>
-        </section>
-        <section id="history">
-            <h2>Your Food and Fitness History</h2>
-            <div>
-                <button id="history_left_button">Left</button>
-                <p>Week <span id="history_week">1</span> of <span id="history_year">2024</span></p>
-                <button id="history_right_button">Left</button>
-            </div>
-            <div>
-                <!-- List of calories stats -->
-            </div>
+                <button id="update_goal_button">Update</button>
+            </section>
+            <section id="add_food">
+                <h2>Add Your Calorie Intake</h2>
+                <div id="food_filter">
+                    <form>
+                        <label for="input_date">Date:</label>
+                        <input type="date" id="input_date"><br>
+                        <select id="meal_type">
+                            <option value="breakfast">Breakfast</option>
+                            <option value="lunch" Selected>Lunch</option>
+                            <option value="dinner">Dinner</option>
+                            <option value="other">Other</option>
+                        </select><br>
+                        <label for="food_name">Food Name:</label>
+                        <input type="text" id="food_name"><br>
+                        <!-- We will add more filter parameters here -->
+                    </form>
+                </div>
+                <div id="food_list">
+                    <h3>Food List</h3>
+                    <!-- List of food and their nutritional values will be here -->
+                </div>
+                <div id="added_food">
+                    <h3>Added food</h3>
+                    <ol>
+                        <!-- List of added food will go here -->
+                    </ol>
+                    <button id="save_food_button">Save</button>
+                </div>
+            </section>
+            <section id="add_fitness">
+                <h3>Add Your Workout</h3>
+                <div id="workout_filter">
+                    <form>
+                        <label for="input_date">Date:</label>
+                        <input type="date" id="input_date"><br>
+                        <label for="workout_name">Workout Name :</label>
+                        <input type="text" id="workout_name"><br>
+                        <label for="workout_duration">Workout Duration :</label>
+                        <input type="number" id="workout_duration"><br>
+                    </form>
+                </div>
+                <div id="workout_list">
+                    <h3>Workout List</h2>
+                    <!-- List of workout & their calorie burn rate will go here -->
+                </div>
+                <div id="added_workout">
+                    <h3>Added Workout</h3>
+                    <ol>
+                        <!-- List of added workout will go here -->
+                    </ol>
+                    <button id="save_workout_button">Save</button>
+                </div>
+            </section>
+            <section id="history">
+                <h2>Your Food and Fitness History</h2>
+                <div>
+                    <button id="history_left_button">Left</button>
+                    <p>Week <span id="history_week">1</span> of <span id="history_year">2024</span></p>
+                    <button id="history_right_button">Left</button>
+                </div>
+                <div>
+                    <!-- List of calories stats -->
+                </div>
+            </section>
+
         </section>
     </body>
 </html>
