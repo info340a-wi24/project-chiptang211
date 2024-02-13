@@ -9,74 +9,86 @@
     </head>
     <body>
         <header>
-            <h2>Fitness+</h2>
-            <a href="index.html">Home</a>
-            <a href="food.html">Food</a>
-            <a href="workout.html">Workout</a>
-            <a href="profile.html">Profile</a>
+            <h1>Fitness+</h1>
+            <input type="checkbox" id="menu_toggle" style="display:none;">
+            <label for="menu_toggle" class="menu_icon">&#9776;</label>
+            <nav class="menu">
+                <a href="index.html">Home</a>
+                <a href="food.html">Food</a>
+                <a href="workout.html">Workout</a>
+                <a href="profile.html">Profile</a>
+            </nav>
         </header>
 
-        <section id="add_food">
-            <h1>Add Your Calorie Intake</h1>
-            <div>
-                <h3>Filter</h3>
-                <form id="food_filter" class="filter">
-                    <label for="input_date">Date:</label>
-                    <input type="date" id="input_date"><br>
-                    <select id="meal_type">
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch" Selected>Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="other">Other</option>
-                    </select><br>
-                    <label for="food_name">Food Name:</label>
-                    <input type="text" id="food_name"><br>
-                    <!-- We will add more filter parameters here -->
-                </form>
-                <button id="update_food_filter_button">Update</button>
-            </div>
+        <main class="add_page">
+            <aside class="left_col">
+                <section id="food_filter_box">
+                    <h1>Add Your Food</h1>
+                    <div>
+                        <form id="food_filter" class="filter">
+                            <label for="input_date">Date:</label>
+                            <input type="date" id="input_date">
+                            <label for="meal_type">Date:</label>
+                            <select id="meal_type">
+                                <option value="breakfast">Breakfast</option>
+                                <option value="lunch" Selected>Lunch</option>
+                                <option value="dinner">Dinner</option>
+                                <option value="other">Other</option>
+                            </select><br>
+                            <label for="food_name">Food Name:</label>
+                            <input type="text" id="food_name"><br>
+                            <!-- We will add more filter parameters here -->
+                        </form>
+                        <button id="update_food_filter_button">Update</button>
+                    </div>
+                </section>
 
-            <div>
-                <h3>Food List</h3>
-                <div class="item_box">
-                    <div class="item">
-                        <p>PLACE HOLDER</p>
-                        <button>Add</button>
+                <section>
+                    <h2>Food List</h2>
+                    <div class="item_box">
+                        <div class="item">
+                            <p>PLACE HOLDER</p>
+                            <button>Add</button>
+                        </div>
+                        <div class="item">
+                            <p>PLACE HOLDER</p>
+                            <button>Add</button>
+                        </div>
+                        <div class="item">
+                            <p>PLACE HOLDER</p>
+                            <button>Add</button>
+                        </div>
+                        <div class="item">
+                            <p>PLACE HOLDER</p>
+                            <button>Add</button>
+                        </div>
                     </div>
-                    <div class="item">
-                        <p>PLACE HOLDER</p>
-                        <button>Add</button>
-                    </div>
-                    <div class="item">
-                        <p>PLACE HOLDER</p>
-                        <button>Add</button>
-                    </div>
-                    <div class="item">
-                        <p>PLACE HOLDER</p>
-                        <button>Add</button>
-                    </div>
-                </div>
-            </div>
+                </section>
+            </aside>
 
-            <div>
-                <h3>Added food</h3>
-                <div class="item_box">
-                    <div class="item">
-                        <p>PLACE HOLDER</p>
-                        <button>Delete</button>
+            <aside class="right_col">
+                <section>
+                    <h2>Added food</h2>
+                    <div class="item_box">
+                        <div class="item">
+                            <p>PLACE HOLDER</p>
+                            <button>Delete</button>
+                        </div>
+                        <div class="item">
+                            <p>PLACE HOLDER</p>
+                            <button>Delete</button>
+                        </div>
                     </div>
-                    <div class="item">
-                        <p>PLACE HOLDER</p>
-                        <button>Delete</button>
-                    </div>
-                </div>
-                <button id="save_food_button">Save</button>
-            </div>
-        </section>
+                    <button id="save_food_button">Save</button>
+                </section>
+            </aside>
+        </main>
 
         <footer>
             <p>Fitness+</p>
+            <p><a href="chiptang.com">chiptang.com</a></p>
             <p><a href="tel:+11234567890">+1 123 456 7890</a></p>
+            <p>Photos Generated by Dall E</p>
         </footer>
     </body>
 </html>
