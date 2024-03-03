@@ -77,6 +77,13 @@ footer a {
     font-weight: bold;
 }
 
+footer div {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 2rem;
+}
+
 
 /* Home Page */
 #introduction, .filter, .item_box {
@@ -157,7 +164,7 @@ footer a {
     #main{
         padding-top: 2rem;
         padding-bottom: 8rem;
-        background-image: url('../img/home.jpg');
+        background-image: url('../public/img/home.jpg');
         background-size: cover;
     }
 
@@ -168,12 +175,12 @@ footer a {
     }
 
     #food_filter_box {
-        background-image: linear-gradient(to bottom, rgba(255,255,255,0), #e7f0c4), url('../img/restaurant.jpg');
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0), #e7f0c4), url('../public/img/restaurant.jpg');
         background-size: cover;
     }
 
     #workout_filter_box {
-        background-image: linear-gradient(to bottom, rgba(255,255,255,0), #e7f0c4), url('../img/gym.jpg');
+        background-image: linear-gradient(to bottom, rgba(255,255,255,0), #e7f0c4), url('../public/img/gym.jpg');
         background-size: cover;
     }
 
