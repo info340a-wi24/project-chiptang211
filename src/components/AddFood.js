@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import foodData from '../data/foods.json'
+import { getDatabase, ref, push } from 'firebase/database';
 
 function AddFood() {
   const [allFoodItems, setAllFoodItems] = useState([]);
@@ -38,23 +39,46 @@ function AddFood() {
     setFilteredFoodItems(filtered);
   };
 
+  const saveFoodItemsToFirebase = () => {
+    const db = getDatabase();
+    addedFoodItems.forEach((item, index) => {
+      const foodsRef = ref(db, 'foods');
+      push(foodsRef, item).then(() => {
+        if(index === addedFoodItems.length - 1) {
+          alert("All food items have been successfully saved.");
+        }
+      }).catch(error => {
+        console.error("Error saving food item: ", error);
+        alert("Failed to save food item: " + error.message);
+      });
+    });
+  };
+
   return (
     <main className="add_page">
       <aside className="left_col">
         <section id="food_filter_box">
           <h1>Add Your Food</h1>
+          <p className='caption'>Powered by Food Database JSON</p>
           <div class="filter">
-            <label htmlFor="add_date">Date:</label>
-            <input type="date" id="add_date" value={addDate} onChange={(e) => setAddDate(e.target.value)} /><br />
-            <label htmlFor="food_brand">Brand:</label>
-            <select id="food_brand" name="brand" value={filter.brand} onChange={handleFilterChange}>
-            <option value="">All</option>
-              {[...new Set(foodData.map(item => item.restaurant))].map((brand, index) => (
-                <option key={index} value={brand}>{brand}</option>
-              ))}
-            </select><br />
-            <label htmlFor="food_name">Food Name:</label>
-            <input type="text" id="food_name" name="name" value={filter.name} onChange={handleFilterChange} /><br />
+            <div>
+              <label htmlFor="add_date">Date:</label>
+              <input type="date" id="add_date" value={addDate} onChange={(e) => setAddDate(e.target.value)} /><br />
+            </div>
+            <div>
+              <label htmlFor="food_brand">Brand:</label>
+              <select id="food_brand" name="brand" value={filter.brand} onChange={handleFilterChange}>
+              <option value="">All</option>
+                {[...new Set(foodData.map(item => item.restaurant))].map((brand, index) => (
+                  <option key={index} value={brand}>{brand}</option>
+                ))}
+              </select><br />
+            </div>
+            <div>
+              <label htmlFor="food_name">Food Name:</label>
+              <input type="text" id="food_name" name="name" value={filter.name} onChange={handleFilterChange} /><br />
+            </div>
+
           </div>
           <button onClick={handleUpdateFilter}>Update</button>
         </section>
@@ -86,7 +110,7 @@ function AddFood() {
               </div>
             ))}
           </div>
-          <button onClick={() => console.log(addedFoodItems)}>Save</button>
+          <button onClick={saveFoodItemsToFirebase}>Save</button>
         </section>
       </aside>
     </main>
