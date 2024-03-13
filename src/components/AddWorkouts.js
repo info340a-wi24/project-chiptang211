@@ -61,6 +61,7 @@ function AddWorkouts() {
           date: workout.date
       }).then(() => {
         if(index === addedWorkouts.length - 1) {
+          setAddedWorkouts([]);
           setError('');
           setIsLoading(false);
           setSuccessMessage("All workout items have been successfully saved.");

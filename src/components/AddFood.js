@@ -49,6 +49,7 @@ function AddFood() {
       const foodsRef = ref(db, 'foods');
       push(foodsRef, item).then(() => {
         if (index === addedFoodItems.length - 1) {
+          setAddedFoodItems([]);
           setIsLoading(false);
           setSuccessMessage("All food items have been successfully saved.");
           setTimeout(() => setSuccessMessage(''), 5000);
