@@ -247,7 +247,7 @@ function Profile() {
                         </tr>
                     </tbody>
                 </table>
-                    <button id="BMI_info" onClick={() => navigate(`/bmi-info/${category}`)}>Learn more about BMI</button>
+                    <button id="BMI_info" onClick={() => navigate(`/bmi-info/${category}`)}>Learn more about your BMI</button>
                 </div>
             </section>
             <section>

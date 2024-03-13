@@ -83,7 +83,7 @@ footer div {
     display: flex;
     justify-content: center;
     text-align: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 
@@ -91,7 +91,7 @@ footer div {
 #introduction, .filter, .item_box {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 0.5rem;
 }
 
 #main p {
@@ -164,7 +164,7 @@ footer div {
 .info_box {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 /* Table */
@@ -243,8 +243,8 @@ th {
 
     .item {
         max-height: 200px;
-        padding-bottom: 2em;
-        margin-bottom: 2em;
+        padding-bottom: 1em;
+        margin-bottom: em;
     }
 }
 
