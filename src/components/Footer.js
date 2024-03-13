@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer>
         <div>
-          <p>Fitness+ All Rights Reserved</p>
+          <p>Chip Tang ©Chipkin 2024 All rights reserved.</p>
           <p><a href="http://chiptang.com">chiptang.com</a></p>
           <p><a href="tel:+12063212078">+1 206 321 2078</a></p>
         </div>

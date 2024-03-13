@@ -8,6 +8,9 @@ function AddFood() {
   const [addedFoodItems, setAddedFoodItems] = useState([]);
   const [filter, setFilter] = useState({ brand: '', name: '' });
   const [addDate, setAddDate] = useState(new Date().toISOString().split('T')[0]);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     const items = foodData.flatMap(restaurant => 
@@ -40,16 +43,19 @@ function AddFood() {
   };
 
   const saveFoodItemsToFirebase = () => {
+    setIsLoading(true);
     const db = getDatabase();
     addedFoodItems.forEach((item, index) => {
       const foodsRef = ref(db, 'foods');
       push(foodsRef, item).then(() => {
-        if(index === addedFoodItems.length - 1) {
-          alert("All food items have been successfully saved.");
+        if (index === addedFoodItems.length - 1) {
+          setIsLoading(false);
+          setSuccessMessage("All food items have been successfully saved.");
+          setTimeout(() => setSuccessMessage(''), 5000);
         }
       }).catch(error => {
-        console.error("Error saving food item: ", error);
-        alert("Failed to save food item: " + error.message);
+        setError("Failed to save food item: " + error.message);
+        setIsLoading(false);
       });
     });
   };
@@ -62,11 +68,11 @@ function AddFood() {
           <p className='caption'>Powered by Food Database JSON</p>
           <div class="filter">
             <div>
-              <label htmlFor="add_date">Date:</label>
+              <label htmlFor="add_date">Date: </label>
               <input type="date" id="add_date" value={addDate} onChange={(e) => setAddDate(e.target.value)} /><br />
             </div>
             <div>
-              <label htmlFor="food_brand">Brand:</label>
+              <label htmlFor="food_brand">Brand: </label>
               <select id="food_brand" name="brand" value={filter.brand} onChange={handleFilterChange}>
               <option value="">All</option>
                 {[...new Set(foodData.map(item => item.restaurant))].map((brand, index) => (
@@ -75,7 +81,7 @@ function AddFood() {
               </select><br />
             </div>
             <div>
-              <label htmlFor="food_name">Food Name:</label>
+              <label htmlFor="food_name">Food Name: </label>
               <input type="text" id="food_name" name="name" value={filter.name} onChange={handleFilterChange} /><br />
             </div>
 
@@ -85,6 +91,7 @@ function AddFood() {
 
         <section>
           <h2>Food List</h2>
+          {isLoading && <div>Loading...</div>}
           <div className="item_box">
             {filteredFoodItems.map((item, index) => (
               <div className="item" key={index}>
@@ -110,6 +117,8 @@ function AddFood() {
               </div>
             ))}
           </div>
+          {error && <div className="error">{error}</div>}
+          {successMessage && <div className="success">{successMessage}</div>}
           <button onClick={saveFoodItemsToFirebase}>Save</button>
         </section>
       </aside>

@@ -6,6 +6,8 @@ import Home from './Home';
 import AddFood from './AddFood';
 import AddWorkouts from './AddWorkouts';
 import Profile from './Profile';
+import BmiInfo from './BmiInfo';
+
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
                     <Route path="/food" element={<AddFood />} />
                     <Route path="/workout" element={<AddWorkouts />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route path="/bmi-info/:category" element={<BmiInfo />} />
                 </Routes>
             <Footer />
         </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, query, orderByChild, onValue, update, equalTo } from 'firebase/database';
 import { Bar, Pie } from 'react-chartjs-2';
 import 'chart.js/auto';
@@ -6,11 +7,15 @@ import 'chart.js/auto';
 function Profile() {
     const [goal, setGoal] = useState('');
     const [weight, setWeight] = useState('');
+    const [height, setHeight] = useState('');
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [dailyFoods, setDailyFoods] = useState([]);
     const [dailyWorkouts, setDailyWorkouts] = useState([]);
     const [totalFoodCalories, setTotalFoodCalories] = useState(0);
     const [totalWorkoutCalories, setTotalWorkoutCalories] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const userProfileId = 'userProfileId';
 
     useEffect(() => {
@@ -22,6 +27,7 @@ function Profile() {
             if (data) {
                 setGoal(data.current_goal || '');
                 setWeight(data.current_weight || '');
+                setHeight(data.current_height || '');
             }
         }, {
             onlyOnce: true
@@ -29,6 +35,23 @@ function Profile() {
 
         fetchDailyData(date);
     }, [userProfileId, date]);
+
+    const calculateBMI = (weight, height) => {
+        const bmi = (weight / (height ** 2)) * 703;
+        let category = '';
+
+        if (bmi < 18.5) {
+            category = "Underweight";
+        } else if (bmi >= 18.5 && bmi < 25) {
+            category = "Healthy Weight";
+        } else if (bmi >= 25.0 && bmi < 30) {
+            category = "Overweight";
+        } else {
+            category = "Obesity";
+        }
+
+        return { bmi: bmi.toFixed(2), category };
+    };
 
     useEffect(() => {
         const calculatedTotalFoodCalories = dailyFoods.reduce((acc, food) => acc + Number(food.calories), 0);
@@ -39,18 +62,22 @@ function Profile() {
     }, [dailyFoods, dailyWorkouts]);
 
     const updateProfile = () => {
+        setIsLoading(true);
         const db = getDatabase();
         const profileRef = ref(db, `profiles/${userProfileId}`);
         update(profileRef, {
-            current_goal: goal,
-            current_weight: weight
+          current_goal: goal,
+          current_weight: weight,
+          current_height: height
         }).then(() => {
-            alert('Profile updated successfully.');
+          setIsLoading(false);
+          setSuccessMessage('Profile updated successfully.');
+          setTimeout(() => setSuccessMessage(''), 5000);
         }).catch((error) => {
-            console.error("Error updating profile: ", error);
-            alert('Failed to update profile.');
+          setError("Failed to update profile: " + error.message);
+          setIsLoading(false);
         });
-    };
+      };
 
     const fetchDailyData = (selectedDate) => {
         const db = getDatabase();
@@ -76,21 +103,22 @@ function Profile() {
     };
 
     const barChartData = {
-        labels: ['Calorie Intake', 'Calorie Burned'],
+        labels: ['Calorie Metrics'],
         datasets: [
             {
-                label: 'Calories',
-                data: [totalFoodCalories, totalWorkoutCalories],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)'
-                ],
+                label: 'Calorie Intake',
+                data: [totalFoodCalories],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 2,
             },
+            {
+                label: 'Calorie Burned',
+                data: [totalWorkoutCalories],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+            }
         ],
     };
 
@@ -102,6 +130,8 @@ function Profile() {
     const foodLabels = dailyFoods.map(food => food.foodName);
     const workoutCaloriesData = dailyWorkouts.map(workout => workout.calories);
     const workoutLabels = dailyWorkouts.map(workout => workout.name);
+    const { bmi, category } = calculateBMI(parseFloat(weight), parseFloat(height));
+    const navigate = useNavigate();
 
     const pieChartDataFoods = {
         labels: foodLabels,
@@ -175,20 +205,48 @@ function Profile() {
         <main>
             <section id="profile">
                 <h1>Profile</h1>
-                <div>
-                    <p>Love eating fast food but want to offset calories?</p>
-                    <p>Your current goal is <span id="current_goal">{goal}</span> Cal.</p>
-                    <p>Your current weight is <span id="current_weight">{weight}</span> lbs.</p>
-                </div>
+                <h2>Love eating fast food but want to offset calories?</h2>
                 <div>
                     <form id="profile_update" className="filter">
-                        <label htmlFor="updated_goal">Update Your Calorie Goal:</label>
-                        <input type="number" id="updated_goal" value={goal} onChange={(e) => setGoal(e.target.value)} /><br />
-                        <label htmlFor="updated_weight">Update Your Weight:</label>
-                        <input type="number" id="updated_weight" value={weight} onChange={(e) => setWeight(e.target.value)} /><br />
+                        <div>
+                            <label htmlFor="updated_goal">Update Your Calorie Goal: </label>
+                            <input type="number" id="updated_goal" value={goal} onChange={(e) => setGoal(e.target.value)} /><br />
+                        </div>
+                        <div>
+                            <label htmlFor="updated_weight">Update Your Weight (lbs): </label>
+                            <input type="number" id="updated_weight" value={weight} onChange={(e) => setWeight(e.target.value)} /><br />
+                        </div>
+                        <div>
+                            <label htmlFor="updated_height">Update Your Height (in): </label>
+                            <input type="number" id="updated_height" value={height} onChange={(e) => setHeight(e.target.value)} /><br />
+                        </div>
                     </form>
+                    <button id="update_profile_button" onClick={updateProfile}>Update</button>
                 </div>
-                <button id="update_profile_button" onClick={updateProfile}>Update</button>
+                <div>
+                {isLoading && <div>Loading...</div>}
+                {error && <div className="error">{error}</div>}
+                {successMessage && <div className="success">{successMessage}</div>}
+                <table>
+                    <tr>
+                        <td>Calorie Goal</td>
+                        <td><span id="current_goal">{goal}</span> Cal.</td>
+                    </tr>
+                    <tr>
+                        <td>Current Weight</td>
+                        <td><span id="current_weight">{weight}</span> lbs.</td>
+                    </tr>
+                    <tr>
+                        <td>Current Height</td>
+                        <td><span id="current_height">{height}</span> inches.</td>
+                    </tr>
+                    <tr>
+                        <td>Current BMI</td>
+                        <td><span id="current_BMI">{bmi}</span> (<span id="current_BMI_range">{category}</span>).</td>
+                    </tr>
+                    </table>
+                    <button id="BMI_info" onClick={() => navigate(`/bmi-info/${category}`)}>Learn more about BMI</button>
+                </div>
             </section>
             <section>
                 <h2>Your Food and Fitness History</h2>
@@ -205,9 +263,24 @@ function Profile() {
                     </div>
 
                     <div id="info_box">
-                        <p>Total Food Calories: {totalFoodCalories}</p>
-                        <p>Total Workout Calories: {totalWorkoutCalories}</p>
-                        <p>Net Calorie Difference: {totalFoodCalories - totalWorkoutCalories}</p>
+                        <table>
+                            <tr>
+                                <td>Total Food Calories:</td>
+                                <td>{totalFoodCalories}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Workout Calories:</td>
+                                <td>{totalWorkoutCalories}</td>
+                            </tr>
+                            <tr>
+                                <td>Net Calorie Difference:</td>
+                                <td>{totalFoodCalories - totalWorkoutCalories}</td>
+                            </tr>
+                            <tr>
+                                <td>Percent Difference</td>
+                                <td>{(((totalFoodCalories - totalWorkoutCalories) / ((totalFoodCalories + totalWorkoutCalories) / 2)) * 100).toFixed(2)}%</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
