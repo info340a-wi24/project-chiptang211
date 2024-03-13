@@ -82,19 +82,19 @@ function AddWorkouts() {
         <section id="workout_filter_box">
           <h1>Add Your Workout</h1>
           <p className='caption'>Powered by API Ninjas</p>
-          <form class="filter">
-            <di>
+          <form className="filter">
+            <div>
               <label htmlFor="addDate">Date:</label>
               <input type="date" id="addDate" value={addDate} onChange={(e) => setAddDate(e.target.value)} /><br />
-            </di>
-            <di>
+            </div>
+            <div>
               <label htmlFor="activity">Workout Name: </label>
               <input type="text" id="activity" placeholder="running" value={activity} onChange={(e) => setActivity(e.target.value)} /><br />
-            </di>
-            <di>
+            </div>
+            <div>
               <label htmlFor="duration">Workout Duration (minutes): </label>
               <input type="number" id="duration" placeholder="60 minutes" value={duration} onChange={(e) => setDuration(e.target.value)} /><br />
-            </di>
+            </div>
           </form>
           <button onClick={fetchWorkouts}>Update</button>
         </section>

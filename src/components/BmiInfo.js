@@ -31,26 +31,28 @@ function BmiInfoPage() {
           <h2>Learn more about BMI</h2>
           <p>Body mass index (BMI) is a person's weight in kilograms divided by the square of height in meters. BMI is an inexpensive and easy screening method for weight category—underweight, healthy weight, overweight, and obesity For adults 20 years old and older, BMI is interpreted using standard weight status categories. These categories are the same for men and women of all body types and ages.</p>
           <table id="bmi_table">
-            <tr>
-              <th>BMI</th>
-              <th>Weight Status</th>
-            </tr>
-            <tr>
-              <td>Below 18.5</td>
-              <td>Underweight</td>
-            </tr>
-            <tr>
-              <td>18.5 - 24.9</td>
-              <td>Healthy Weight</td>
-            </tr>
-            <tr>
-              <td>25.0 - 29.9</td>
-              <td>Overweight</td>
-            </tr>
-            <tr>
-              <td>30.0 and Above</td>
-              <td>Obesity</td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>BMI</th>
+                <th>Weight Status</th>
+              </tr>
+              <tr>
+                <td>Below 18.5</td>
+                <td>Underweight</td>
+              </tr>
+              <tr>
+                <td>18.5 - 24.9</td>
+                <td>Healthy Weight</td>
+              </tr>
+              <tr>
+                <td>25.0 - 29.9</td>
+                <td>Overweight</td>
+              </tr>
+              <tr>
+                <td>30.0 and Above</td>
+                <td>Obesity</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </section>

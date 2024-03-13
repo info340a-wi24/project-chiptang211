@@ -67,7 +67,7 @@ function AddFood() {
         <section id="food_filter_box">
           <h1>Add Your Food</h1>
           <p className='caption'>Powered by Food Database JSON</p>
-          <div class="filter">
+          <div className="filter">
             <div>
               <label htmlFor="add_date">Date: </label>
               <input type="date" id="add_date" value={addDate} onChange={(e) => setAddDate(e.target.value)} /><br />

@@ -243,6 +243,8 @@ th {
 
     .item {
         max-height: 200px;
+        padding-bottom: 2em;
+        margin-bottom: 2em;
     }
 }
 

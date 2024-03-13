@@ -228,23 +228,25 @@ function Profile() {
                 {error && <div className="error">{error}</div>}
                 {successMessage && <div className="success">{successMessage}</div>}
                 <table>
-                    <tr>
-                        <td>Calorie Goal</td>
-                        <td><span id="current_goal">{goal}</span> Cal.</td>
-                    </tr>
-                    <tr>
-                        <td>Current Weight</td>
-                        <td><span id="current_weight">{weight}</span> lbs.</td>
-                    </tr>
-                    <tr>
-                        <td>Current Height</td>
-                        <td><span id="current_height">{height}</span> inches.</td>
-                    </tr>
-                    <tr>
-                        <td>Current BMI</td>
-                        <td><span id="current_BMI">{bmi}</span> (<span id="current_BMI_range">{category}</span>).</td>
-                    </tr>
-                    </table>
+                    <tbody>
+                        <tr>
+                            <td>Calorie Goal</td>
+                            <td><span id="current_goal">{goal}</span> Cal.</td>
+                        </tr>
+                        <tr>
+                            <td>Current Weight</td>
+                            <td><span id="current_weight">{weight}</span> lbs.</td>
+                        </tr>
+                        <tr>
+                            <td>Current Height</td>
+                            <td><span id="current_height">{height}</span> inches.</td>
+                        </tr>
+                        <tr>
+                            <td>Current BMI</td>
+                            <td><span id="current_BMI">{bmi}</span> (<span id="current_BMI_range">{category}</span>).</td>
+                        </tr>
+                    </tbody>
+                </table>
                     <button id="BMI_info" onClick={() => navigate(`/bmi-info/${category}`)}>Learn more about BMI</button>
                 </div>
             </section>
@@ -264,22 +266,24 @@ function Profile() {
 
                     <div id="info_box">
                         <table>
-                            <tr>
-                                <td>Total Food Calories:</td>
-                                <td>{totalFoodCalories}</td>
-                            </tr>
-                            <tr>
-                                <td>Total Workout Calories:</td>
-                                <td>{totalWorkoutCalories}</td>
-                            </tr>
-                            <tr>
-                                <td>Net Calorie Difference:</td>
-                                <td>{totalFoodCalories - totalWorkoutCalories}</td>
-                            </tr>
-                            <tr>
-                                <td>Percent Difference</td>
-                                <td>{(((totalFoodCalories - totalWorkoutCalories) / ((totalFoodCalories + totalWorkoutCalories) / 2)) * 100).toFixed(2)}%</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>Total Food Calories:</td>
+                                    <td>{totalFoodCalories}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Workout Calories:</td>
+                                    <td>{totalWorkoutCalories}</td>
+                                </tr>
+                                <tr>
+                                    <td>Net Calorie Difference:</td>
+                                    <td>{totalFoodCalories - totalWorkoutCalories}</td>
+                                </tr>
+                                <tr>
+                                    <td>Percent Difference</td>
+                                    <td>{(((totalFoodCalories - totalWorkoutCalories) / ((totalFoodCalories + totalWorkoutCalories) / 2)) * 100).toFixed(2)}%</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
